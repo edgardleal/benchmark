@@ -14,13 +14,10 @@ public class BeanUtilsExample implements Runnable{
   @Override
   public void run() {
     for (int i = 0; i < Benchmark.ITERATIONS; i++) {
-      Cliente cliente = new Cliente();
-      BeanUtils.createCache();
+      Cliente cliente = new Cliente("Teste", 5, 7.7, "Test street");
+      Cliente second  = new Cliente();
       try {
-        BeanUtils.setProperty(cliente, "nome", "Teste");
-        BeanUtils.setProperty(cliente, "idade", 5);
-        BeanUtils.setProperty(cliente, "saldo", 7.7);
-        BeanUtils.setProperty(cliente, "endereco", "Rua do teste");
+        second = (Cliente) BeanUtils.cloneBean(cliente);
       }catch(Exception ex) {
         ex.printStackTrace();
       }

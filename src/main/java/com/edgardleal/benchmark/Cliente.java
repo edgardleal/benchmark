@@ -9,6 +9,17 @@ public class Cliente {
   private double saldo;
   private String endereco;
 
+  public Cliente(String nome, int idade, double saldo, String endereco) {
+    this.nome = nome;
+    this.idade = idade;
+    this.saldo = saldo;
+    this.endereco = endereco;
+  }
+
+  public Cliente() {
+
+  }
+
   public String getNome() {
     return nome;
   }

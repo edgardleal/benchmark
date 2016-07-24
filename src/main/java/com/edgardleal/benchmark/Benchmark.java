@@ -45,7 +45,7 @@ public class Benchmark {
 
       int length = 6;
       stringBuilder.append("+----------+-----------+-----------+-----------+").append('\n');
-      stringBuilder.append("| Min      | AVG       | Max       | Desviation|").append('\n');
+      stringBuilder.append("| Min      | AVG       | Max       | Variation |").append('\n');
       stringBuilder.append("+----------+-----------+-----------+-----------+").append('\n')
           .append(String.format("| %s | %s  | %s  | %s  |\n", formatter.time(min, length),
               formatter.time(average, length),

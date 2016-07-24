@@ -44,7 +44,7 @@
                         <configuration>
                             <mainClass>com.edgardleal.benchmark.Benchmark</mainClass>
                             <arguments>
-                                <argument>1000</argument>
+                                <argument>1</argument>
                             </arguments>
                         </configuration>
                     </execution>

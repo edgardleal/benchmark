@@ -11,15 +11,12 @@ public class GetsetExample implements  Runnable{
 
   public void run() {
     for (int i = 0; i < Benchmark.ITERATIONS; i++) {
-      Cliente cliente = new Cliente();
-      try {
-        cliente.setNome("Teste");
-        cliente.setIdade(5);
-        cliente.setSaldo(7.7);
-        cliente.setEndereco("Rua do teste");
-      }catch(Exception ex) {
-        ex.printStackTrace();
-      }
+      Cliente cliente = new Cliente("Teste", 5, 7.7, "Test street");
+      Cliente second = new Cliente();
+      second.setNome(cliente.getNome());
+      second.setIdade(cliente.getIdade());
+      second.setSaldo(cliente.getSaldo());
+      second.setEndereco(cliente.getEndereco());
     }
   }
 }

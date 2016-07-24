@@ -1,9 +1,13 @@
 package com.edgardleal.benchmark;
 
+import org.apache.commons.lang3.StringUtils;
+
+import java.lang.reflect.Field;
+
 /**
  * Created by edgardleal on 24/07/16.
  */
-public class ReflectionExample implements Runnable{
+public class ReflectionExample implements Runnable {
 
 
   public ReflectionExample() {
@@ -12,13 +16,18 @@ public class ReflectionExample implements Runnable{
   @Override
   public void run() {
     for (int i = 0; i < Benchmark.ITERATIONS; i++) {
-      Cliente cliente = new Cliente();
+      Cliente cliente = new Cliente("Teste", 5, 7.7, "Test street");
+      Cliente second = new Cliente();
       try {
-        Cliente.class.getDeclaredMethod("setNome", String.class).invoke(cliente, "Teste");
-        Cliente.class.getDeclaredMethod("setIdade", int.class).invoke(cliente, 5);
-        Cliente.class.getDeclaredMethod("setSaldo", double.class).invoke(cliente, 7.7);
-        Cliente.class.getDeclaredMethod("setEndereco", String.class).invoke(cliente, "Rua do teste");
-      }catch(Exception ex) {
+        Field fields[] = Cliente.class.getDeclaredFields();
+        for (Field field : fields) {
+          String capitalizedName = StringUtils.capitalize(field.getName());
+          Cliente.class.getDeclaredMethod("set" + capitalizedName,
+              field.getType()).invoke(second,
+              Cliente.class.getDeclaredMethod("get" + capitalizedName).invoke(cliente, new Class<?>[0])
+          );
+        }
+      } catch (Exception ex) {
         ex.printStackTrace();
       }
     }
