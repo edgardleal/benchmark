@@ -1,5 +1,7 @@
 package com.edgardleal.benchmark;
 
+import org.apache.commons.math3.stat.descriptive.SummaryStatistics;
+
 /**
  * Created by edgardleal on 24/07/16.
  */
@@ -7,35 +9,19 @@ public class Benchmark {
   private static final long ONE_SECOND = 1000L;
   private static final long ONE_MINUTE = 60L * ONE_SECOND;
   private static final long MAX_WAIT = ONE_MINUTE;
-  public static final int ITERATIONS = 1000;
+  public static final int ITERATIONS = 10000;
   private final Runnable runnable;
 
   class Statistics {
-    double min = Double.MAX_VALUE;
-    double max = Double.MIN_VALUE;
-    double average = Double.MIN_VALUE;
-    double variance = Double.MIN_VALUE;
+    private SummaryStatistics timeStats;
 
     public Statistics(Result[] list) throws NoSuchFieldException, IllegalAccessException {
+      this.timeStats = new SummaryStatistics();
       double total = 0D;
       for (Result obj : list) {
         Double value = Double.valueOf(obj.duration);
-        if (value < min) {
-          min = value;
-        }
-        if (value > max) {
-          max = value;
-        }
-        total += value;
+        timeStats.addValue(value);
       }
-
-      average = total / list.length;
-      total = 0D;
-      for (Result obj :
-          list) {
-        total += Math.abs(average - obj.duration);
-      }
-      this.variance = total / results.length;
     }
 
     @Override
@@ -45,12 +31,13 @@ public class Benchmark {
 
       int length = 6;
       stringBuilder.append("+----------+-----------+-----------+-----------+").append('\n');
-      stringBuilder.append("| Min      | AVG       | Max       | Variation |").append('\n');
+      stringBuilder.append("| Min      | AVG       | Max       | SD        |").append('\n');
       stringBuilder.append("+----------+-----------+-----------+-----------+").append('\n')
-          .append(String.format("| %s | %s  | %s  | %s  |\n", formatter.time(min, length),
-              formatter.time(average, length),
-              formatter.time(max, length),
-              formatter.time(variance, length)))
+          .append(String.format("| %s | %s  | %s  | %s  |\n",
+              formatter.time(timeStats.getMin(), length),
+              formatter.time(timeStats.getMean(), length),
+              formatter.time(timeStats.getMax(), length),
+              formatter.time(timeStats.getStandardDeviation(), length)))
           .append("+----------+-----------+-----------+-----------+").append('\n');
       return stringBuilder.toString();
     }
