@@ -150,24 +150,15 @@ public class Benchmark {
     }
   }
 
-  public static void main(String[] args) throws IllegalAccessException, InstantiationException {
+  public static void main(String[] args) throws IllegalAccessException, InstantiationException, ClassNotFoundException {
     Class<?> clazz;
     if (args.length > 0) {
-      switch (args[0]) {
-        case "1":
-          clazz = GetsetExample.class;
-          break;
-        case "2":
-          clazz = ReflectionExample.class;
-          break;
-        default:
-          clazz = BeanUtilsExample.class;
-      }
+      clazz = Class.forName("com.edgardleal.benchmark." + args[0]);
     } else {
-      clazz = BeanUtilsExample.class;
+      clazz = ReflectionExample.class;
     }
     Benchmark benchmark = new Benchmark((Runnable) clazz.newInstance());
-    benchmark.start(50);
+    benchmark.start(150);
     System.out.printf("+----------------------------------------------+\n| %-45s|\n", clazz.getSimpleName());
     benchmark.printStatistics();
     System.out.println("Done");

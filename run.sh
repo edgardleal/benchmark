@@ -14,7 +14,11 @@ fi
 
 [ ! -z "$commands" ] && mvn "$commands"
 
-for i in {1,2,3} 
-do
-  java -cp "${classes}:${dependencies}*" -client com.edgardleal.benchmark.Benchmark $i
-done
+if [ ! -z "$@" ]; then
+  java -cp "${classes}:${dependencies}*" -client com.edgardleal.benchmark.Benchmark $@
+else
+  for i in {1,2,3} 
+  do
+    java -cp "${classes}:${dependencies}*" -client com.edgardleal.benchmark.Benchmark $i
+  done
+fi
