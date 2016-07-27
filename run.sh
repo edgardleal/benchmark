@@ -2,23 +2,21 @@
 
 declare -r classes="target/classes"
 declare -r dependencies="target/dependency/"
-declare commands=""
+declare path_separator=":"
+
+if [ ! "$(uname -s)" == "Linux" ]; then
+  path_separator=";"
+fi
 
 if [ ! -d "$classes" ]; then
-  commands="$commands compile"
+  mvn compile
 fi
 
 if [ ! -d "$dependencies" ]; then
-  commands="$commands compile dependency:copy-dependencies"
+  mvn "dependency:copy-dependencies"
 fi
 
-[ ! -z "$commands" ] && mvn "$commands"
+declare parameters="$@"
+[ -z "$parameters" ] && parameters="RegexString" 
 
-if [ ! -z "$@" ]; then
-  java -cp "${classes}:${dependencies}*" -client com.edgardleal.benchmark.Benchmark $@
-else
-  for i in {1,2,3} 
-  do
-    java -cp "${classes}:${dependencies}*" -client com.edgardleal.benchmark.Benchmark $i
-  done
-fi
+java -cp "${classes}${path_separator}${dependencies}*" -client com.edgardleal.benchmark.Benchmark $parameters
