@@ -17,6 +17,7 @@ if [ ! -d "$dependencies" ]; then
 fi
 
 declare parameters="$@"
-[ -z "$parameters" ] && parameters="RegexString" 
+[ -z "$parameters" ] && parameters="com.edgardleal.benchmark.example.RegexString" 
+
 
 java -cp "${classes}${path_separator}${dependencies}*" -client com.edgardleal.benchmark.Benchmark $parameters
