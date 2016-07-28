@@ -1,5 +1,6 @@
-package com.edgardleal.benchmark;
+package com.edgardleal.benchmark.example;
 
+import com.edgardleal.benchmark.Benchmark;
 import org.apache.commons.beanutils.BeanUtils;
 
 import java.util.ArrayList;

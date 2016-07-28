@@ -1,6 +1,7 @@
 package com.edgardleal.benchmark;
 
 import com.edgardleal.benchmark.chart.Render;
+import com.edgardleal.benchmark.example.ReflectionExample;
 
 import java.io.IOException;
 

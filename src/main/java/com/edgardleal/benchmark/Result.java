@@ -4,12 +4,21 @@ package com.edgardleal.benchmark;
  * Created by edgardleal on 25/07/16.
  */
 public class Result {
+  private String category;
   private long duration;
   private long memory;
 
   public Result(long startTime, long startMemory) {
     this.duration = System.nanoTime() - startTime;
     this.memory = Runtime.getRuntime().freeMemory();
+  }
+
+  public String getCategory() {
+    return category;
+  }
+
+  public void setCategory(String category) {
+    this.category = category;
   }
 
   @Override

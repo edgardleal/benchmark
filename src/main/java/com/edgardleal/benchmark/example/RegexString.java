@@ -1,4 +1,6 @@
-package com.edgardleal.benchmark;
+package com.edgardleal.benchmark.example;
+
+import com.edgardleal.benchmark.Benchmark;
 
 /**
  * Created by edgardleal on 25/07/16.
