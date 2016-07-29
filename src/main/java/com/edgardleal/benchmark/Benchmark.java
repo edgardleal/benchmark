@@ -88,6 +88,13 @@ public class Benchmark {
     }
   }
 
+  public Result[] getResults() {
+    return results;
+  }
+
+  public String getName() {
+    return name;
+  }
 
   public static void main(String[] args) throws IllegalAccessException, InstantiationException, ClassNotFoundException, IOException {
     Class<?> clazz;
@@ -96,7 +103,7 @@ public class Benchmark {
     } else {
       clazz = ReflectionExample.class;
     }
-    Benchmark benchmark = null;
+    Benchmark benchmark;
     Object object = clazz.newInstance();
     if (object instanceof Runnable) {
       benchmark = benchmarkForRunnable((Runnable) object, clazz.getSimpleName());
@@ -109,9 +116,9 @@ public class Benchmark {
         if (!method.getName().startsWith("time")) {
           continue;
         }
-        benchmarks[i++] = benchmarkForRunnable(new MethodRunner(method, object), clazz.getSimpleName() + "." + method.getName());
-        drawImageFile(benchmarks[i - 1], clazz.getSimpleName() + "." + method.getName());
+        benchmarks[i++] = benchmarkForRunnable(new MethodRunner(method, object), method.getName());
       }
+      new Render().generateChartToFile(benchmarks, clazz.getSimpleName() + ".png");
 
     }
     System.out.println("Done");

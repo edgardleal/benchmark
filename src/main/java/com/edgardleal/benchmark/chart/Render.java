@@ -1,11 +1,14 @@
 package com.edgardleal.benchmark.chart;
 
+import com.edgardleal.benchmark.Benchmark;
 import com.edgardleal.benchmark.Result;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,6 +18,27 @@ import java.io.IOException;
  */
 public class Render {
 
+
+  public void generateChartToFile(Benchmark[] benchmarks, final String file) throws IOException {
+    XYSeriesCollection categoryDataset = new XYSeriesCollection();
+    for (Benchmark benchmark: benchmarks) {
+      int i = 0;
+      XYSeries xySeries = new XYSeries(benchmark.getName());
+      for (Result result : benchmark.getResults()) {
+        xySeries.add(i++, result.getDuration());
+      }
+      categoryDataset.addSeries(xySeries);
+    }
+
+    JFreeChart jFreeChart =
+        ChartFactory.createXYLineChart( file,
+            "i","Time",
+            categoryDataset,
+            PlotOrientation.VERTICAL,
+            true,true,false);
+
+    ChartUtilities.saveChartAsPNG(new File(file), jFreeChart, 700,400);
+  }
   public void generateChartToFile(Result[] results, final String file) throws IOException {
     DefaultCategoryDataset categoryDataset = new DefaultCategoryDataset();
     int i = 0;
