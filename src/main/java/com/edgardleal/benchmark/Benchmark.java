@@ -81,7 +81,8 @@ public class Benchmark {
 
   public static void drawImageFile(Benchmark benchmark, String clazz) {
     try {
-      new Render().generateChartToFile(benchmark.results, clazz + ".png");
+      Result[] results = benchmark.results;
+      new Render().generateChartToFile(results, clazz + ".png");
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -109,7 +110,7 @@ public class Benchmark {
           continue;
         }
         benchmarks[i++] = benchmarkForRunnable(new MethodRunner(method, object), clazz.getSimpleName() + "." + method.getName());
-        drawImageFile(benchmarks[i], clazz.getSimpleName() + "." + method.getName());
+        drawImageFile(benchmarks[i - 1], clazz.getSimpleName() + "." + method.getName());
       }
 
     }
