@@ -7,13 +7,13 @@ import java.util.regex.Pattern;
 /**
  * Created by edgardleal on 25/07/16.
  */
-class RegexPrecompiled  implements Runnable {
-  Pattern pattern = Pattern.compile(".*([\\d]+)");
+class RegexPrecompiled implements Runnable {
   public static final String TEXT = "lkjaslkdjflkajsdlfjalsjdlfkjalksjdlfkjlkjlk23423423";
+  Pattern pattern = Pattern.compile(".*([\\d]+)");
 
   @Override
   public void run() {
-    for(int i = 0; i< Benchmark.ITERATIONS; i++) {
+    for (int i = 0; i < Benchmark.ITERATIONS; i++) {
       pattern.matcher(TEXT).matches();
     }
   }

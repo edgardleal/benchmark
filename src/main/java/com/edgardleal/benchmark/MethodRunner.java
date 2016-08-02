@@ -18,13 +18,14 @@ public class MethodRunner implements Runnable {
 
   @Override
   public void run() {
-    for (int i = 0; i < 2; i++)
-    try {
-      method.invoke(this.object , new Object[0]);
-    } catch (IllegalAccessException e) {
-      e.printStackTrace();
-    } catch (InvocationTargetException e) {
-      e.printStackTrace();
+    for (int i = 0; i < 2; i++) {
+      try {
+        method.invoke(this.object, new Object[0]);
+      } catch (IllegalAccessException e) {
+        e.printStackTrace();
+      } catch (InvocationTargetException e) {
+        e.printStackTrace();
+      }
     }
   }
 }

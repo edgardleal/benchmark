@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by edgardleal on 24/07/16.
  */
-public class GetsetExample implements  Runnable{
+public class GetsetExample implements Runnable {
 
 
   public GetsetExample() {

@@ -1,12 +1,13 @@
 package com.edgardleal.benchmark.example;
 
 import com.edgardleal.benchmark.Benchmark;
-import org.apache.commons.beanutils.BeanUtils;
 
+import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.lang3.StringUtils;
+
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
-import java.lang.reflect.Field;
-import org.apache.commons.lang3.StringUtils;
 
 /**
  * Created by edgardleal on 24/07/16.
@@ -21,34 +22,34 @@ public class BeanUtilsExample {
     List<Cliente> list = new ArrayList<Cliente>();
     for (int i = 0; i < Benchmark.ITERATIONS; i++) {
       Cliente cliente = new Cliente("Teste", 5, 7.7, "Test street");
-      Cliente second  = new Cliente();
+      Cliente second = new Cliente();
       try {
         second = (Cliente) BeanUtils.cloneBean(cliente);
         list.add(second);
-      }catch(Exception ex) {
+      } catch (Exception ex) {
         ex.printStackTrace();
       }
     }
   }
-  
+
   public void timeReflection() {
-      List<Cliente> list = new ArrayList<Cliente>();
-      for (int i = 0; i < Benchmark.ITERATIONS; i++) {
-        Cliente cliente = new Cliente("Teste", 5, 7.7, "Test street");
-        Cliente second = new Cliente();
-        try {
-          Field fields[] = Cliente.class.getDeclaredFields();
-          for (Field field : fields) {
-            String capitalizedName = StringUtils.capitalize(field.getName());
-            Cliente.class.getDeclaredMethod("set" + capitalizedName,
-                field.getType()).invoke(second,
-                Cliente.class.getDeclaredMethod("get" + capitalizedName).invoke(cliente, new Class<?>[0])
-            );
-            list.add(second);
-          }
-        } catch (Exception ex) {
-          ex.printStackTrace();
+    List<Cliente> list = new ArrayList<Cliente>();
+    for (int i = 0; i < Benchmark.ITERATIONS; i++) {
+      Cliente cliente = new Cliente("Teste", 5, 7.7, "Test street");
+      Cliente second = new Cliente();
+      try {
+        Field fields[] = Cliente.class.getDeclaredFields();
+        for (Field field : fields) {
+          String capitalizedName = StringUtils.capitalize(field.getName());
+          Cliente.class.getDeclaredMethod("set" + capitalizedName,
+              field.getType()).invoke(second,
+              Cliente.class.getDeclaredMethod("get" + capitalizedName).invoke(cliente, new Class<?>[0])
+          );
+          list.add(second);
         }
+      } catch (Exception ex) {
+        ex.printStackTrace();
       }
+    }
   }
 }

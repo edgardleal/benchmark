@@ -15,7 +15,7 @@ class RegexString implements Runnable {
 
   @Override
   public void run() {
-    for(int i = 0; i< Benchmark.ITERATIONS; i++) {
+    for (int i = 0; i < Benchmark.ITERATIONS; i++) {
       REGEX.matches(TEXT);
     }
   }

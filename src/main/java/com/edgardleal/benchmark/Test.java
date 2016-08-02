@@ -7,18 +7,18 @@ import java.util.regex.Pattern;
  */
 public class Test {
 
-  Pattern pattern = Pattern.compile(".*([\\d]+)");
   public static final String TEXT = "lkjaslkdjflkajsdlfjalsjdlfkjalksjdlfkjlkjlk23423423";
   public static final String REGEX = ".*([\\d]+)";
+  Pattern pattern = Pattern.compile(".*([\\d]+)");
 
-  public void timeCompiled(){
-    for(int i = 0; i< Benchmark.ITERATIONS; i++) {
+  public void timeCompiled() {
+    for (int i = 0; i < Benchmark.ITERATIONS; i++) {
       pattern.matcher(TEXT).matches();
     }
   }
 
   public void timeNotCompiled() {
-    for(int i = 0; i< Benchmark.ITERATIONS; i++) {
+    for (int i = 0; i < Benchmark.ITERATIONS; i++) {
       REGEX.matches(TEXT);
     }
   }

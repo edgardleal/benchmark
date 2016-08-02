@@ -2,6 +2,7 @@ package com.edgardleal.benchmark.chart;
 
 import com.edgardleal.benchmark.Benchmark;
 import com.edgardleal.benchmark.Result;
+
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
@@ -21,7 +22,7 @@ public class Render {
 
   public void generateChartToFile(Benchmark[] benchmarks, final String file) throws IOException {
     XYSeriesCollection categoryDataset = new XYSeriesCollection();
-    for (Benchmark benchmark: benchmarks) {
+    for (Benchmark benchmark : benchmarks) {
       int i = 0;
       XYSeries xySeries = new XYSeries(benchmark.getName());
       for (Result result : benchmark.getResults()) {
@@ -31,30 +32,31 @@ public class Render {
     }
 
     JFreeChart jFreeChart =
-        ChartFactory.createXYLineChart( file,
-            "i","Time",
+        ChartFactory.createXYLineChart(file,
+            "i", "Time",
             categoryDataset,
             PlotOrientation.VERTICAL,
-            true,true,false);
+            true, true, false);
 
-    ChartUtilities.saveChartAsPNG(new File(file), jFreeChart, 700,400);
+    ChartUtilities.saveChartAsPNG(new File(file), jFreeChart, 700, 400);
   }
+
   public void generateChartToFile(Result[] results, final String file) throws IOException {
     DefaultCategoryDataset categoryDataset = new DefaultCategoryDataset();
     int i = 0;
-    for (Result result: results) {
+    for (Result result : results) {
       categoryDataset.addValue(result.getDuration() / 1000, "Time", String.valueOf(i++));
       // TODO: check if values of time and memory are compatible when printed
       // categoryDataset.addValue(result.getMemory(), "Memory", String.valueOf(i));
     }
 
     JFreeChart jFreeChart =
-     ChartFactory.createLineChart( file,
-        "i","Time",
-        categoryDataset,
-        PlotOrientation.VERTICAL,
-        true,true,false);
+        ChartFactory.createLineChart(file,
+            "i", "Time",
+            categoryDataset,
+            PlotOrientation.VERTICAL,
+            true, true, false);
 
-    ChartUtilities.saveChartAsPNG(new File(file), jFreeChart, 700,400);
+    ChartUtilities.saveChartAsPNG(new File(file), jFreeChart, 700, 400);
   }
 }
