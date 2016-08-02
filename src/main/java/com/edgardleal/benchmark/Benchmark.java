@@ -10,7 +10,7 @@ import java.lang.reflect.Method;
  * Created by edgardleal on 24/07/16.
  */
 public class Benchmark {
-  public static final int ITERATIONS = 10000;
+  public static final int ITERATIONS = 1000;
   public static final int MAX_OPERATIONS = 10;
   private static final long ONE_SECOND = 1000L;
   private static final long ONE_MINUTE = 60L * ONE_SECOND;

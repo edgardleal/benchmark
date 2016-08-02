@@ -19,44 +19,55 @@ import java.io.IOException;
  */
 public class Render {
 
-
+  /**
+   * Render a chart file for many Benchmarks.
+   * @param benchmarks
+   * @param file
+   * @throws IOException
+   */
   public void generateChartToFile(Benchmark[] benchmarks, final String file) throws IOException {
     XYSeriesCollection categoryDataset = new XYSeriesCollection();
     for (Benchmark benchmark : benchmarks) {
-      int i = 0;
+      int counter = 0;
       XYSeries xySeries = new XYSeries(benchmark.getName());
       for (Result result : benchmark.getResults()) {
-        xySeries.add(i++, result.getDuration());
+        xySeries.add(counter++, result.getDuration() / 1000_000);
       }
       categoryDataset.addSeries(xySeries);
     }
 
-    JFreeChart jFreeChart =
+    JFreeChart freeChart =
         ChartFactory.createXYLineChart(file,
-            "i", "Time",
+            "Executions", "Time ms",
             categoryDataset,
             PlotOrientation.VERTICAL,
             true, true, false);
 
-    ChartUtilities.saveChartAsPNG(new File(file), jFreeChart, 700, 400);
+    ChartUtilities.saveChartAsPNG(new File(file), freeChart, 700, 400);
   }
 
+  /**
+   * Render a chart file for result of one Benchmark execution.
+   * @param results
+   * @param file
+   * @throws IOException
+   */
   public void generateChartToFile(Result[] results, final String file) throws IOException {
     DefaultCategoryDataset categoryDataset = new DefaultCategoryDataset();
-    int i = 0;
+    int counter = 0;
     for (Result result : results) {
-      categoryDataset.addValue(result.getDuration() / 1000, "Time", String.valueOf(i++));
+      categoryDataset.addValue(result.getDuration() / 1000, "Time", String.valueOf(counter++));
       // TODO: check if values of time and memory are compatible when printed
       // categoryDataset.addValue(result.getMemory(), "Memory", String.valueOf(i));
     }
 
-    JFreeChart jFreeChart =
+    JFreeChart freeChart =
         ChartFactory.createLineChart(file,
             "i", "Time",
             categoryDataset,
             PlotOrientation.VERTICAL,
             true, true, false);
 
-    ChartUtilities.saveChartAsPNG(new File(file), jFreeChart, 700, 400);
+    ChartUtilities.saveChartAsPNG(new File(file), freeChart, 700, 400);
   }
 }
