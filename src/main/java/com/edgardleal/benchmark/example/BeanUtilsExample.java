@@ -18,6 +18,20 @@ public class BeanUtilsExample {
 
   }
 
+  public void timeGetAndSet() {
+    List<Cliente> list = new ArrayList<Cliente>();
+    for (int i = 0; i < Benchmark.ITERATIONS; i++) {
+      Cliente cliente = new Cliente("Teste", 5, 7.7, "Test street");
+      Cliente second = new Cliente();
+      second.setNome(cliente.getNome());
+      second.setIdade(cliente.getIdade());
+      second.setSaldo(cliente.getSaldo());
+      second.setEndereco(cliente.getEndereco());
+
+      list.add(second);
+    }
+  }
+
   public void timeBeanutils() {
     List<Cliente> list = new ArrayList<Cliente>();
     for (int i = 0; i < Benchmark.ITERATIONS; i++) {
