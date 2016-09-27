@@ -18,6 +18,9 @@ import java.io.IOException;
  * Created by edgardleal on 25/07/16.
  */
 public class Render {
+  private static final int ONE_SECOND = 1000;
+  private int chartWidth  = 700;
+  private int chartHeight = 400;
 
   /**
    * Render a chart file for many Benchmarks.
@@ -43,7 +46,7 @@ public class Render {
             PlotOrientation.VERTICAL,
             true, true, false);
 
-    ChartUtilities.saveChartAsPNG(new File(file), freeChart, 700, 400);
+    ChartUtilities.saveChartAsPNG(new File(file), freeChart, chartWidth, chartHeight);
   }
 
   /**
@@ -56,7 +59,7 @@ public class Render {
     DefaultCategoryDataset categoryDataset = new DefaultCategoryDataset();
     int counter = 0;
     for (Result result : results) {
-      categoryDataset.addValue(result.getDuration() / 1000, "Time", String.valueOf(counter++));
+      categoryDataset.addValue(result.getDuration() / ONE_SECOND, "Time", String.valueOf(counter++));
       // TODO: check if values of time and memory are compatible when printed
       // categoryDataset.addValue(result.getMemory(), "Memory", String.valueOf(i));
     }
