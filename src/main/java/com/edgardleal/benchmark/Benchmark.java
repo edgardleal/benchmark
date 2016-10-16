@@ -28,6 +28,7 @@ public class Benchmark {
 
   public static Benchmark benchmarkForRunnable(Runnable runnable, String name) {
     Benchmark benchmark = new Benchmark(runnable, name);
+    benchmark.start(150); // warmup
     benchmark.start(150);
     System.out.printf("+----------------------------------------------+\n| %-45s|\n", name);
     benchmark.printStatistics();
