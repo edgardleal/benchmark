@@ -2,3 +2,8 @@
 benchmark.iml
 target/
 *.png
+gradlew
+gradlew.bat
+build/
+gradle/
+.gradle
