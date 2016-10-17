@@ -11,13 +11,22 @@ import java.util.List;
 
 /**
  * Created by edgardleal on 24/07/16.
+ *
+ * @author edgardleal
+ * @version $Id: $Id
  */
 public class BeanUtilsExample {
 
+  /**
+   * <p>Constructor for BeanUtilsExample.</p>
+   */
   public BeanUtilsExample() {
 
   }
 
+  /**
+   * <p>timeGetAndSet.</p>
+   */
   public void timeGetAndSet() {
     List<Cliente> list = new ArrayList<Cliente>();
     for (int i = 0; i < Benchmark.ITERATIONS; i++) {
@@ -32,6 +41,9 @@ public class BeanUtilsExample {
     }
   }
 
+  /**
+   * <p>timeBeanutils.</p>
+   */
   public void timeBeanutils() {
     List<Cliente> list = new ArrayList<Cliente>();
     for (int i = 0; i < Benchmark.ITERATIONS; i++) {
@@ -46,6 +58,9 @@ public class BeanUtilsExample {
     }
   }
 
+  /**
+   * <p>timeReflection.</p>
+   */
   public void timeReflection() {
     List<Cliente> list = new ArrayList<Cliente>();
     for (int i = 0; i < Benchmark.ITERATIONS; i++) {

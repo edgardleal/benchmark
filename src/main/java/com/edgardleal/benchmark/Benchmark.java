@@ -8,24 +8,42 @@ import java.lang.reflect.Method;
 
 /**
  * Created by edgardleal on 24/07/16.
+ *
+ * @author edgardleal
+ * @version $Id: $Id
  */
 public class Benchmark {
+  /** Constant <code>ITERATIONS=1000</code> */
   public static final int ITERATIONS = 1000;
+  /** Constant <code>MAX_OPERATIONS=10</code> */
   public static final int MAX_OPERATIONS = 10;
   private static final long ONE_SECOND = 1000L;
   private static final long ONE_MINUTE = 60L * ONE_SECOND;
   private static final long MAX_WAIT = ONE_MINUTE;
   private final Runnable runnable;
   private final String name;
-  private Thread threads[] = new Thread[MAX_OPERATIONS];
-  private Result results[] = new Result[MAX_OPERATIONS];
+  private Thread threads[];
+  private Result results[];
 
 
+  /**
+   * <p>Constructor for Benchmark.</p>
+   *
+   * @param runnable a {@link java.lang.Runnable} object.
+   * @param name a {@link java.lang.String} object.
+   */
   public Benchmark(Runnable runnable, String name) {
     this.runnable = runnable;
     this.name = name;
   }
 
+  /**
+   * <p>benchmarkForRunnable.</p>
+   *
+   * @param runnable a {@link java.lang.Runnable} object.
+   * @param name a {@link java.lang.String} object.
+   * @return a {@link com.edgardleal.benchmark.Benchmark} object.
+   */
   public static Benchmark benchmarkForRunnable(Runnable runnable, String name) {
     Benchmark benchmark = new Benchmark(runnable, name);
     benchmark.start(150); // warmup
@@ -35,6 +53,12 @@ public class Benchmark {
     return benchmark;
   }
 
+  /**
+   * <p>drawImageFile.</p>
+   *
+   * @param benchmark a {@link com.edgardleal.benchmark.Benchmark} object.
+   * @param clazz a {@link java.lang.String} object.
+   */
   public static void drawImageFile(Benchmark benchmark, String clazz) {
     try {
       Result[] results = benchmark.results;
@@ -44,8 +68,18 @@ public class Benchmark {
     }
   }
 
-  public static void main(String[] args) throws IllegalAccessException, InstantiationException, ClassNotFoundException, IOException {
-    Class<?> clazz;
+  /**
+   * <p>main.</p>
+   *
+   * @param args an array of {@link java.lang.String} objects.
+   * @throws java.lang.IllegalAccessException if any.
+   * @throws java.lang.InstantiationException if any.
+   * @throws java.lang.ClassNotFoundException if any.
+   * @throws java.io.IOException if any.
+   */
+  public static void main(String[] args) throws IllegalAccessException, 
+         InstantiationException, ClassNotFoundException, IOException {
+    final Class<?> clazz;
     if (args.length > 0) {
       clazz = Class.forName(args[0]);
     } else {
@@ -59,19 +93,21 @@ public class Benchmark {
     } else {
       Method[] methods = clazz.getDeclaredMethods();
       Benchmark[] benchmarks = new Benchmark[methods.length];
-      int i = 0;
+      int counter = 0;
       for (Method method : methods) {
         if (!method.getName().startsWith("time")) {
           continue;
         }
-        benchmarks[i++] = benchmarkForRunnable(new MethodRunner(method, object), method.getName());
+        benchmarks[counter++] = benchmarkForRunnable(new MethodRunner(method, object), method.getName());
       }
       new Render().generateChartToFile(benchmarks, clazz.getSimpleName() + ".png");
-
     }
     System.out.println("Done");
   }
 
+  /**
+   * <p>Create Threads and results for this execution.</p>
+   */
   private void setup(int iterations) {
     this.threads = new Thread[iterations];
     this.results = new Result[iterations];
@@ -80,6 +116,11 @@ public class Benchmark {
     }
   }
 
+  /**
+   * <p>start the benchmark.</p>
+   *
+   * @param iterations a int.
+   */
   public void start(int iterations) {
     this.setup(iterations);
     long start = 0L;
@@ -97,6 +138,9 @@ public class Benchmark {
     }
   }
 
+  /**
+   * <p>printResults.</p>
+   */
   public void printResults() {
     for (Result result :
         this.results) {
@@ -104,6 +148,9 @@ public class Benchmark {
     }
   }
 
+  /**
+   * <p>printStatistics.</p>
+   */
   public void printStatistics() {
     try {
       Statistics statistics = new Statistics(this.results);
@@ -115,10 +162,20 @@ public class Benchmark {
     }
   }
 
+  /**
+   * <p>Getter for the field <code>results</code>.</p>
+   *
+   * @return an array of {@link com.edgardleal.benchmark.Result} objects.
+   */
   public Result[] getResults() {
     return results;
   }
 
+  /**
+   * <p>Getter for the field <code>name</code>.</p>
+   *
+   * @return a {@link java.lang.String} object.
+   */
   public String getName() {
     return name;
   }

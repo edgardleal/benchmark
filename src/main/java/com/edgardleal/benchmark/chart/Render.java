@@ -16,6 +16,9 @@ import java.io.IOException;
 
 /**
  * Created by edgardleal on 25/07/16.
+ *
+ * @author edgardleal
+ * @version $Id: $Id
  */
 public class Render {
   private static final int ONE_SECOND = 1000;
@@ -24,9 +27,10 @@ public class Render {
 
   /**
    * Render a chart file for many Benchmarks.
-   * @param benchmarks
-   * @param file
-   * @throws IOException
+   *
+   * @param benchmarks an array of {@link com.edgardleal.benchmark.Benchmark} objects.
+   * @param file a {@link java.lang.String} object.
+   * @throws java.io.IOException if any.
    */
   public void generateChartToFile(Benchmark[] benchmarks, final String file) throws IOException {
     XYSeriesCollection categoryDataset = new XYSeriesCollection();
@@ -51,9 +55,10 @@ public class Render {
 
   /**
    * Render a chart file for result of one Benchmark execution.
-   * @param results
-   * @param file
-   * @throws IOException
+   *
+   * @param results an array of {@link com.edgardleal.benchmark.Result} objects.
+   * @param file a {@link java.lang.String} object.
+   * @throws java.io.IOException if any.
    */
   public void generateChartToFile(Result[] results, final String file) throws IOException {
     DefaultCategoryDataset categoryDataset = new DefaultCategoryDataset();
