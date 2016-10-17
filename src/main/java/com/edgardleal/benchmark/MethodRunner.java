@@ -5,17 +5,29 @@ import java.lang.reflect.Method;
 
 /**
  * Created by edgardleal on 27/07/16.
+ *
+ * @author edgardleal
+ * @version $Id: $Id
  */
 public class MethodRunner implements Runnable {
 
   private final Object object;
   private Method method;
 
+  /**
+   * <p>Constructor for MethodRunner.</p>
+   *
+   * @param method a {@link java.lang.reflect.Method} object.
+   * @param object a {@link java.lang.Object} object.
+   */
   public MethodRunner(Method method, Object object) {
     this.method = method;
     this.object = object;
   }
 
+  /**
+   * <p>Started by Thread.</p>
+   */
   @Override
   public void run() {
     for (int i = 0; i < 2; i++) {

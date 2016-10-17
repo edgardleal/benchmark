@@ -10,13 +10,20 @@ import java.util.List;
 
 /**
  * Created by edgardleal on 24/07/16.
+ *
+ * @author edgardleal
+ * @version $Id: $Id
  */
 public class ReflectionExample implements Runnable {
 
 
+  /**
+   * <p>Constructor for ReflectionExample.</p>
+   */
   public ReflectionExample() {
   }
 
+  /** {@inheritDoc} */
   @Override
   public void run() {
     List<Cliente> list = new ArrayList<Cliente>();
