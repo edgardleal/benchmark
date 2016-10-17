@@ -1,5 +1,6 @@
-apply plugin: 'java'
+apply plugin: 'application'
 apply plugin: 'maven'
+mainClassName= 'com.edgardleal.benchmark.Benchmark'
 
 group = 'com.edgardleal.benchmark'
 version = '1.0'
