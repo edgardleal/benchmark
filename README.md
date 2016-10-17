@@ -1,8 +1,28 @@
 # benchmark
 Simple java project to compare algorithm performance
 
+## Compiling with Maven 
+
+``` mvn compile ```
+
+``` 
+mvn package dependency:copy-dependencies 
+```
+
+## Compiling with Gradle 
+
+```
+gradle distZip
+```
+
+---
 
 ## Sample result
+
+* GetsetExample = this is a pure java exemple accessing class fields
+* ReflectionExample = the same funcionality using pure java reflection
+* BeanUtilsExample  = the same example using the library Apache BenUtils
+---
 
 ###  GetsetExample
 | Min      | AVG       | Max       | Variation |
