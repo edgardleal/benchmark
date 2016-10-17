@@ -59,7 +59,8 @@ public class Render {
     DefaultCategoryDataset categoryDataset = new DefaultCategoryDataset();
     int counter = 0;
     for (Result result : results) {
-      categoryDataset.addValue(result.getDuration() / ONE_SECOND, "Time", String.valueOf(counter++));
+      categoryDataset.addValue(result.getDuration() / ONE_SECOND, "Time", 
+          String.valueOf(counter++));
       // TODO: check if values of time and memory are compatible when printed
       // categoryDataset.addValue(result.getMemory(), "Memory", String.valueOf(i));
     }
@@ -74,3 +75,4 @@ public class Render {
     ChartUtilities.saveChartAsPNG(new File(file), freeChart, 700, 400);
   }
 }
+// vi: expandtab smarttab shiftwidth=2 tabstop=2 lbr tw=100

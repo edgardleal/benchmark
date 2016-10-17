@@ -20,3 +20,4 @@ class RegexString implements Runnable {
     }
   }
 }
+// vi: expandtab smarttab shiftwidth=2 tabstop=2 lbr tw=100

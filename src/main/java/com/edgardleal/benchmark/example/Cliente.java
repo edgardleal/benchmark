@@ -414,3 +414,4 @@ public class Cliente {
     this.field40 = field40;
   }
 }
+// vi: expandtab smarttab shiftwidth=2 tabstop=2 lbr tw=100

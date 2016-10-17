@@ -38,3 +38,4 @@ public class Statistics {
     return stringBuilder.toString();
   }
 }
+// vi: expandtab smarttab shiftwidth=2 tabstop=2 lbr tw=100
