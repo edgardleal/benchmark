@@ -77,7 +77,7 @@ Note: This chart was generated withou this commit de16ba345a65b1fbdd433fe9c32e78
         <dependency>
           <groupId>com.edgardleal.benchmark</groupId>
           <artifactId>benchmark</artifactId>
-          <version>1.0.1</version>
+          <version>1.0.3</version>
         </dependency>
       </dependencies>
     
