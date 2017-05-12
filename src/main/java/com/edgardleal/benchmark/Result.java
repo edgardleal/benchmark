@@ -15,9 +15,8 @@ public class Result {
    * <p>Constructor for Result.</p>
    *
    * @param startTime a long.
-   * @param startMemory a long.
    */
-  public Result(long startTime, long startMemory) {
+  public Result(long startTime) {
     this.duration = System.nanoTime() - startTime;
     this.memory = Runtime.getRuntime().freeMemory();
   }

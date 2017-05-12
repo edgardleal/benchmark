@@ -2,7 +2,6 @@ package com.edgardleal.benchmark;
 
 import com.edgardleal.benchmark.chart.Render;
 import com.edgardleal.benchmark.example.ReflectionExample;
-
 import java.io.IOException;
 import java.lang.reflect.Method;
 
@@ -13,9 +12,14 @@ import java.lang.reflect.Method;
  * @version $Id: $Id
  */
 public class Benchmark {
-  /** Constant <code>ITERATIONS=1000</code> */
+
+  /**
+   * Constant <code>ITERATIONS=1000</code>
+   */
   public static final int ITERATIONS = 1000;
-  /** Constant <code>MAX_OPERATIONS=10</code> */
+  /**
+   * Constant <code>MAX_OPERATIONS=10</code>
+   */
   public static final int MAX_OPERATIONS = 10;
   private static final long ONE_SECOND = 1000L;
   private static final long ONE_MINUTE = 60L * ONE_SECOND;
@@ -77,8 +81,8 @@ public class Benchmark {
    * @throws java.lang.ClassNotFoundException if any.
    * @throws java.io.IOException if any.
    */
-  public static void main(String[] args) throws IllegalAccessException, 
-         InstantiationException, ClassNotFoundException, IOException {
+  public static void main(String[] args) throws IllegalAccessException,
+      InstantiationException, ClassNotFoundException, IOException {
     final Class<?> clazz;
     if (args.length > 0) {
       clazz = Class.forName(args[0]);
@@ -98,7 +102,8 @@ public class Benchmark {
         if (!method.getName().startsWith("time")) {
           continue;
         }
-        benchmarks[counter++] = benchmarkForRunnable(new MethodRunner(method, object), method.getName());
+        benchmarks[counter++] = benchmarkForRunnable(new MethodRunner(method, object),
+            method.getName());
       }
       new Render().generateChartToFile(benchmarks, clazz.getSimpleName() + ".png");
     }
@@ -108,24 +113,24 @@ public class Benchmark {
   /**
    * <p>Create Threads and results for this execution.</p>
    */
-  private void setup(int iterations) {
-    this.threads = new Thread[iterations];
-    this.results = new Result[iterations];
-    for (int i = 0; i < iterations; i++) {
+  private void setup(int executions) {
+    this.threads = new Thread[executions];
+    this.results = new Result[executions];
+    for (int i = 0; i < executions; i++) {
       threads[i] = new Thread(this.runnable, String.format("Benchmark - %d", i));
     }
   }
 
   /**
-   * <p>start the benchmark.</p>
+   * <p>Start each execution in a separated {@link Thread}.</p>
    *
-   * @param iterations a int.
+   * @param executions a int.
    */
-  public void start(int iterations) {
-    this.setup(iterations);
-    long start = 0L;
+  public void start(int executions) {
+    this.setup(executions);
+    long start;
     long memory = Runtime.getRuntime().freeMemory();
-    for (int i = 0; i < iterations; i++) {
+    for (int i = 0; i < executions; i++) {
       start = System.nanoTime();
       threads[i].start();
       try {
