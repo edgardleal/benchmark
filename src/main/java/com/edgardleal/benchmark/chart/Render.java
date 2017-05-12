@@ -16,14 +16,21 @@ import java.io.IOException;
 
 /**
  * Created by edgardleal on 25/07/16.
+ *
+ * @author edgardleal
+ * @version $Id: $Id
  */
 public class Render {
+  private static final int ONE_SECOND = 1000;
+  private int chartWidth  = 700;
+  private int chartHeight = 400;
 
   /**
    * Render a chart file for many Benchmarks.
-   * @param benchmarks
-   * @param file
-   * @throws IOException
+   *
+   * @param benchmarks an array of {@link com.edgardleal.benchmark.Benchmark} objects.
+   * @param file a {@link java.lang.String} object.
+   * @throws java.io.IOException if any.
    */
   public void generateChartToFile(Benchmark[] benchmarks, final String file) throws IOException {
     XYSeriesCollection categoryDataset = new XYSeriesCollection();
@@ -43,20 +50,22 @@ public class Render {
             PlotOrientation.VERTICAL,
             true, true, false);
 
-    ChartUtilities.saveChartAsPNG(new File(file), freeChart, 700, 400);
+    ChartUtilities.saveChartAsPNG(new File(file), freeChart, chartWidth, chartHeight);
   }
 
   /**
    * Render a chart file for result of one Benchmark execution.
-   * @param results
-   * @param file
-   * @throws IOException
+   *
+   * @param results an array of {@link com.edgardleal.benchmark.Result} objects.
+   * @param file a {@link java.lang.String} object.
+   * @throws java.io.IOException if any.
    */
   public void generateChartToFile(Result[] results, final String file) throws IOException {
     DefaultCategoryDataset categoryDataset = new DefaultCategoryDataset();
     int counter = 0;
     for (Result result : results) {
-      categoryDataset.addValue(result.getDuration() / 1000, "Time", String.valueOf(counter++));
+      categoryDataset.addValue(result.getDuration() / ONE_SECOND, "Time", 
+          String.valueOf(counter++));
       // TODO: check if values of time and memory are compatible when printed
       // categoryDataset.addValue(result.getMemory(), "Memory", String.valueOf(i));
     }
@@ -71,3 +80,4 @@ public class Render {
     ChartUtilities.saveChartAsPNG(new File(file), freeChart, 700, 400);
   }
 }
+// vi: expandtab smarttab shiftwidth=2 tabstop=2 lbr tw=100

@@ -1,0 +1,25 @@
+apply plugin: 'application'
+apply plugin: 'maven'
+mainClassName= 'com.edgardleal.benchmark.Benchmark'
+
+group = 'com.edgardleal.benchmark'
+version = '1.0'
+
+description = """"""
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+
+
+repositories {
+        
+     maven { url "http://repo.maven.apache.org/maven2" }
+}
+dependencies {
+    compile group: 'org.jfree', name: 'jfreechart', version:'1.0.14'
+    compile group: 'org.apache.commons', name: 'commons-math3', version:'3.6.1'
+    compile group: 'commons-beanutils', name: 'commons-beanutils', version:'1.9.2'
+    compile group: 'org.apache.commons', name: 'commons-lang3', version:'3.4'
+    compile group: 'org.apache.commons', name: 'commons-csv', version:'1.3'
+}

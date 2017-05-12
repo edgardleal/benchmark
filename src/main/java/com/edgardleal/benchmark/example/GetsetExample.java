@@ -7,13 +7,22 @@ import java.util.List;
 
 /**
  * Created by edgardleal on 24/07/16.
+ *
+ * @author edgardleal
+ * @version $Id: $Id
  */
 public class GetsetExample implements Runnable {
 
 
+  /**
+   * <p>Constructor for GetsetExample.</p>
+   */
   public GetsetExample() {
   }
 
+  /**
+   * <p>run.</p>
+   */
   public void run() {
     List<Cliente> list = new ArrayList<Cliente>();
     for (int i = 0; i < Benchmark.ITERATIONS; i++) {
@@ -28,3 +37,4 @@ public class GetsetExample implements Runnable {
     }
   }
 }
+// vi: expandtab smarttab shiftwidth=2 tabstop=2 lbr tw=100

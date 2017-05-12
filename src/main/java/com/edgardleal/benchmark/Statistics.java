@@ -4,10 +4,20 @@ import org.apache.commons.math3.stat.descriptive.SummaryStatistics;
 
 /**
  * Created by edgardleal on 25/07/16.
+ *
+ * @author edgardleal
+ * @version $Id: $Id
  */
 public class Statistics {
   private SummaryStatistics timeStats;
 
+  /**
+   * <p>Constructor for Statistics.</p>
+   *
+   * @param list an array of {@link com.edgardleal.benchmark.Result} objects.
+   * @throws java.lang.NoSuchFieldException if any.
+   * @throws java.lang.IllegalAccessException if any.
+   */
   public Statistics(Result[] list) throws NoSuchFieldException, IllegalAccessException {
     this.timeStats = new SummaryStatistics();
     for (Result obj : list) {
@@ -16,10 +26,16 @@ public class Statistics {
     }
   }
 
+  /**
+   * <p>Getter for the field <code>timeStats</code>.</p>
+   *
+   * @return a {@link org.apache.commons.math3.stat.descriptive.SummaryStatistics} object.
+   */
   public SummaryStatistics getTimeStats() {
     return this.timeStats;
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     StringBuilder stringBuilder = new StringBuilder();
@@ -38,3 +54,4 @@ public class Statistics {
     return stringBuilder.toString();
   }
 }
+// vi: expandtab smarttab shiftwidth=2 tabstop=2 lbr tw=100
