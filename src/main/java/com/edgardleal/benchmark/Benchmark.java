@@ -196,6 +196,9 @@ public class Benchmark {
    * @return an array of {@link Result} objects.
    */
   public List<Result> getResults() {
+    if (this.results == null) {
+      this.results = new LinkedList<>();
+    }
     return results;
   }
 
