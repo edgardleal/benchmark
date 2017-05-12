@@ -9,6 +9,7 @@ package com.edgardleal.benchmark;
 public class Result {
   private String category;
   private long duration;
+  private long start;
   private long memory;
 
   /**
@@ -19,6 +20,10 @@ public class Result {
   public Result(long startTime) {
     this.duration = System.nanoTime() - startTime;
     this.memory = Runtime.getRuntime().freeMemory();
+  }
+
+  public Result() {
+
   }
 
   /**
@@ -80,6 +85,14 @@ public class Result {
    */
   public void setMemory(long memory) {
     this.memory = memory;
+  }
+
+  public void start() {
+    this.start = System.currentTimeMillis();
+  }
+
+  public void stop() {
+    this.duration = this.start - System.currentTimeMillis();
   }
 }
 // vi: expandtab smarttab shiftwidth=2 tabstop=2 lbr tw=100

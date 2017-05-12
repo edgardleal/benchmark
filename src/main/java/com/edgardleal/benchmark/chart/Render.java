@@ -3,6 +3,7 @@ package com.edgardleal.benchmark.chart;
 import com.edgardleal.benchmark.Benchmark;
 import com.edgardleal.benchmark.Result;
 
+import java.util.List;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
@@ -78,6 +79,10 @@ public class Render {
             true, true, false);
 
     ChartUtilities.saveChartAsPNG(new File(file), freeChart, 700, 400);
+  }
+
+  public void generateChartToFile(List<Result> results, String s) throws IOException {
+    generateChartToFile((Benchmark[]) results.toArray(), s);
   }
 }
 // vi: expandtab smarttab shiftwidth=2 tabstop=2 lbr tw=100
