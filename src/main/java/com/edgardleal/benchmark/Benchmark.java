@@ -139,7 +139,7 @@ public class Benchmark {
     this.lastResult.start();
   }
 
-  public void stop(final String point) {
+  public void stop() {
     if (this.lastResult != null) {
       this.lastResult.stop();
       this.getResults().add(this.lastResult);
