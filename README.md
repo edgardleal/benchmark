@@ -1,5 +1,7 @@
 # benchmark
-Simple java project to compare algorithm performance
+> Simple java project to compare algorithm performance
+
+Project information: [Benchmark Site](https://edgardleal.github.io/benchmark/)
 
 ## Compiling with Maven 
 
