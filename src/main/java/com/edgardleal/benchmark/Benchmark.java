@@ -4,6 +4,8 @@ import com.edgardleal.benchmark.chart.Render;
 import com.edgardleal.benchmark.example.ReflectionExample;
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by edgardleal on 24/07/16.
@@ -12,6 +14,7 @@ import java.lang.reflect.Method;
  * @version $Id: $Id
  */
 public class Benchmark {
+
 
   /**
    * Constant <code>ITERATIONS=1000</code>
@@ -24,11 +27,18 @@ public class Benchmark {
   private static final long ONE_SECOND = 1000L;
   private static final long ONE_MINUTE = 60L * ONE_SECOND;
   private static final long MAX_WAIT = ONE_MINUTE;
-  private final Runnable runnable;
-  private final String name;
+  private Runnable runnable;
+  private String name;
   private Thread threads[];
-  private Result results[];
-
+  private List<Result> results;
+  private Result lastResult;
+  /**
+   * This indicate the max number of results stored. When the number of results stored reached the
+   * max value, this {@link Benchmark} will print the result on console and reset the result list.
+   * By default the value is <code>-1</code> , this values means that this {@link Benchmark}
+   * shouldn't clean the result list.
+   */
+  private int maxResults = -1;
 
   /**
    * <p>Constructor for Benchmark.</p>
@@ -41,12 +51,16 @@ public class Benchmark {
     this.name = name;
   }
 
+  public Benchmark(int maxResults) {
+    this.maxResults = maxResults;
+  }
+
   /**
    * <p>benchmarkForRunnable.</p>
    *
    * @param runnable a {@link java.lang.Runnable} object.
    * @param name a {@link java.lang.String} object.
-   * @return a {@link com.edgardleal.benchmark.Benchmark} object.
+   * @return a {@link Benchmark} object.
    */
   public static Benchmark benchmarkForRunnable(Runnable runnable, String name) {
     Benchmark benchmark = new Benchmark(runnable, name);
@@ -65,8 +79,7 @@ public class Benchmark {
    */
   public static void drawImageFile(Benchmark benchmark, String clazz) {
     try {
-      Result[] results = benchmark.results;
-      new Render().generateChartToFile(results, clazz + ".png");
+      new Render().generateChartToFile(benchmark.getResults(), clazz + ".png");
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -115,9 +128,25 @@ public class Benchmark {
    */
   private void setup(int executions) {
     this.threads = new Thread[executions];
-    this.results = new Result[executions];
+    this.results = new LinkedList<>();
     for (int i = 0; i < executions; i++) {
       threads[i] = new Thread(this.runnable, String.format("Benchmark - %d", i));
+    }
+  }
+
+  public void start() {
+    this.lastResult = new Result();
+    this.lastResult.start();
+  }
+
+  public void stop(final String point) {
+    if (this.lastResult != null) {
+      this.lastResult.stop();
+      this.getResults().add(this.lastResult);
+      if (this.maxResults > -1 && this.getResults().size() > this.maxResults) {
+        this.printStatistics();
+        this.results = new LinkedList<>();
+      }
     }
   }
 
@@ -138,7 +167,7 @@ public class Benchmark {
       } catch (InterruptedException e) {
         e.printStackTrace();
       }
-      this.results[i] = new Result(start, memory);
+      this.getResults().add(new Result(start));
       System.gc();
     }
   }
@@ -157,22 +186,16 @@ public class Benchmark {
    * <p>printStatistics.</p>
    */
   public void printStatistics() {
-    try {
-      Statistics statistics = new Statistics(this.results);
-      System.out.println(statistics.toString());
-    } catch (NoSuchFieldException e) {
-      e.printStackTrace();
-    } catch (IllegalAccessException e) {
-      e.printStackTrace();
-    }
+    Statistics statistics = new Statistics(this.getResults());
+    System.out.println(statistics.toString());
   }
 
   /**
    * <p>Getter for the field <code>results</code>.</p>
    *
-   * @return an array of {@link com.edgardleal.benchmark.Result} objects.
+   * @return an array of {@link Result} objects.
    */
-  public Result[] getResults() {
+  public List<Result> getResults() {
     return results;
   }
 

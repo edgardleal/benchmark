@@ -1,5 +1,6 @@
 package com.edgardleal.benchmark;
 
+import java.util.List;
 import org.apache.commons.math3.stat.descriptive.SummaryStatistics;
 
 /**
@@ -21,6 +22,14 @@ public class Statistics {
   public Statistics(Result[] list) throws NoSuchFieldException, IllegalAccessException {
     this.timeStats = new SummaryStatistics();
     for (Result obj : list) {
+      Double value = Double.valueOf(obj.getDuration());
+      timeStats.addValue(value);
+    }
+  }
+
+  public Statistics(List<Result> results) {
+    this.timeStats = new SummaryStatistics();
+    for (Result obj : results) {
       Double value = Double.valueOf(obj.getDuration());
       timeStats.addValue(value);
     }
