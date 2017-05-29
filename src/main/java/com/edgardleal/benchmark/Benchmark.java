@@ -51,7 +51,8 @@ public class Benchmark {
     this.name = name;
   }
 
-  public Benchmark(int maxResults) {
+  public Benchmark(int maxResults, final String name) {
+    this.name = name;
     this.maxResults = maxResults;
   }
 
@@ -186,7 +187,7 @@ public class Benchmark {
    * <p>printStatistics.</p>
    */
   public void printStatistics() {
-    Statistics statistics = new Statistics(this.getResults());
+    Statistics statistics = new Statistics(this.name, this.getResults());
     System.out.println(statistics.toString());
   }
 
@@ -206,6 +207,10 @@ public class Benchmark {
    */
   public String getName() {
     return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
   }
 }
 // vi: expandtab smarttab shiftwidth=2 tabstop=2 lbr tw=100
