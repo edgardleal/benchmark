@@ -58,8 +58,8 @@ public class Statistics {
 
     int length = 6;
     String formatedName = StringUtils.center(this.title, 46);
-    stringBuilder.append("+----------+-----------+-----------+-----------+").append('\n');
-    stringBuilder.append('+').append(formatedName).append('+').append('\n');
+    stringBuilder.append("+----------------------------------------------+").append('\n');
+    stringBuilder.append('|').append(formatedName).append('|').append('\n');
     stringBuilder.append("+----------+-----------+-----------+-----------+").append('\n');
     stringBuilder.append("| Min      | AVG       | Max       | SD        |").append('\n');
     stringBuilder.append("+----------+-----------+-----------+-----------+").append('\n')
