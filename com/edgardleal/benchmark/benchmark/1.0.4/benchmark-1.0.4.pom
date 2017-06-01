@@ -6,12 +6,11 @@
 
   <groupId>com.edgardleal.benchmark</groupId>
   <artifactId>benchmark</artifactId>
-  <version>1.0.3</version>
+  <version>1.0.4</version>
   <name>benchmark</name>
   <description>This is a Java library to measure performance for specific parts of your code.
   </description>
-  <url>...</url>
-
+  <url>https://edgardleal.github.io/benchmark/</url>
 
   <distributionManagement>
     <repository>

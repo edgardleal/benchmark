@@ -3,12 +3,10 @@
   <groupId>com.edgardleal.benchmark</groupId>
   <artifactId>benchmark</artifactId>
   <versioning>
-    <release>1.0.3</release>
+    <release>1.0.4</release>
     <versions>
-      <version>1.0.1</version>
-      <version>1.0.2</version>
-      <version>1.0.3</version>
+      <version>1.0.4</version>
     </versions>
-    <lastUpdated>20170512182354</lastUpdated>
+    <lastUpdated>20170601144659</lastUpdated>
   </versioning>
 </metadata>
