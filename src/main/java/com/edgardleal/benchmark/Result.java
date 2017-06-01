@@ -88,11 +88,11 @@ public class Result {
   }
 
   public void start() {
-    this.start = System.currentTimeMillis();
+    this.start = System.nanoTime();
   }
 
   public void stop() {
-    this.duration = this.start - System.currentTimeMillis();
+    this.duration = System.nanoTime() - this.start;
   }
 }
 // vi: expandtab smarttab shiftwidth=2 tabstop=2 lbr tw=100

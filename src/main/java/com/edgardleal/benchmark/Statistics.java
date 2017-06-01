@@ -1,6 +1,7 @@
 package com.edgardleal.benchmark;
 
 import java.util.List;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.math3.stat.descriptive.SummaryStatistics;
 
 /**
@@ -10,12 +11,14 @@ import org.apache.commons.math3.stat.descriptive.SummaryStatistics;
  * @version $Id: $Id
  */
 public class Statistics {
+
   private SummaryStatistics timeStats;
+  private String title;
 
   /**
    * <p>Constructor for Statistics.</p>
    *
-   * @param list an array of {@link com.edgardleal.benchmark.Result} objects.
+   * @param list an array of {@link Result} objects.
    * @throws java.lang.NoSuchFieldException if any.
    * @throws java.lang.IllegalAccessException if any.
    */
@@ -27,7 +30,8 @@ public class Statistics {
     }
   }
 
-  public Statistics(List<Result> results) {
+  public Statistics(String name, List<Result> results) {
+    this.title = name;
     this.timeStats = new SummaryStatistics();
     for (Result obj : results) {
       Double value = Double.valueOf(obj.getDuration());
@@ -44,13 +48,18 @@ public class Statistics {
     return this.timeStats;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public String toString() {
     StringBuilder stringBuilder = new StringBuilder();
     Formatter formatter = new Formatter();
 
     int length = 6;
+    String formatedName = StringUtils.center(this.title, 46);
+    stringBuilder.append("+----------------------------------------------+").append('\n');
+    stringBuilder.append('|').append(formatedName).append('|').append('\n');
     stringBuilder.append("+----------+-----------+-----------+-----------+").append('\n');
     stringBuilder.append("| Min      | AVG       | Max       | SD        |").append('\n');
     stringBuilder.append("+----------+-----------+-----------+-----------+").append('\n')
